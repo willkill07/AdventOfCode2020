@@ -12,7 +12,7 @@ A Programming Language Per Day
 | 6   | Python       | makes use of generators and extensive list comprehensions           |
 | 7   | Julia        | Regex + comprehension for input. Sets for determining composition   |
 | 8   |              |                                                                     |
-| 9   |              |                                                                     |
+| 9   | F#           | (Ab)using sequences for fun(ctional programming) and profit         |
 | 10  |              |                                                                     |
 | 11  |              |                                                                     |
 | 12  | Swift        |                                                                     |
@@ -22,7 +22,6 @@ A Programming Language Per Day
 
 
 Languages to Choose from:
-- Sed
 - C
 - C++
 - D
