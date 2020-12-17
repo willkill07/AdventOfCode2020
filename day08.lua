@@ -13,7 +13,7 @@ function toggle(instruction)
     end
 end
 
-function find_loop(instructions, backtrace, pc, acc)
+function simulate(instructions, backtrace, pc, acc)
     acc = acc or 0
     pc = pc or 1
     local visits = {}
@@ -40,7 +40,7 @@ function find_loop(instructions, backtrace, pc, acc)
 end
 
 function part1(instructions, bc)
-    return find_loop(instructions, bc)
+    return simulate(instructions, bc)
 end
 
 function part2(instructions, bc)
@@ -48,7 +48,7 @@ function part2(instructions, bc)
         if instructions[b[1]][1] ~= "acc" then
             toggle(instructions[b[1]])
             local new_bc = {}
-            local acc = find_loop(instructions, new_bc, b[1], b[2])
+            local acc = simulate(instructions, new_bc, b[1], b[2])
             if new_bc[#new_bc][1] == #instructions then
                 return acc
             end
