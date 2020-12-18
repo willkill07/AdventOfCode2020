@@ -14,17 +14,17 @@ A Programming Language Per Day
 | 8   | Lua          | Translated from a javascript solution. My first lua program!        |
 | 9   | F#           | (Ab)using sequences for fun(ctional programming) and profit         |
 | 10  | Haskell      | Converted my OCaml solution to Haskell                              |
-| 11  |              |                                                                     |
+| 11  | D            |                                                                     |
 | 12  | Swift        |                                                                     |
 | 13  |              |                                                                     |
 | 14  | Ruby         |                                                                     |
 | 15  | PHP          |                                                                     |
 | 16  |              |                                                                     |
 | 17  | C++20        |                                                                     |
+| 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
 
 Languages to Choose from:
 - C
-- D
 - Rust
 - Java
 - Scala
