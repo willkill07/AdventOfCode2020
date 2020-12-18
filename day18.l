@@ -11,12 +11,12 @@
 
 %%
 
-[ \t]	; // ignore all whitespace
-[0-9]+	{yylval.val = atoi(yytext); return T_NUM;}
-\n		{return T_NEWLINE;}
-"+"		{return T_PLUS;}
-"*"		{return T_MULTIPLY;}
-"("		{return T_LEFT;}
-")"		{return T_RIGHT;}
+[ \t]   ; // ignore all whitespace
+[0-9]+  {yylval.val = atoi(yytext); return T_NUM;}
+\n      {return T_NEWLINE;}
+"+"     {return T_PLUS;}
+"*"     {return T_MULTIPLY;}
+"("     {return T_LEFT;}
+")"     {return T_RIGHT;}
 
 %%
