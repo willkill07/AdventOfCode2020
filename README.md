@@ -14,21 +14,21 @@ A Programming Language Per Day
 | 8   | Lua          | Translated from a javascript solution. My first lua program!        |
 | 9   | F#           | (Ab)using sequences for fun(ctional programming) and profit         |
 | 10  | Haskell      | Converted my OCaml solution to Haskell                              |
-| 11  | D            |                                                                     |
-| 12  | Swift        |                                                                     |
+| 11  | C            | Total of two dynamic memory allocations -- size is not hardcoded.   |
+| 12  | Swift        | Combination of Functional, Object-oriented, and fun with enums      |
 | 13  |              |                                                                     |
-| 14  | Ruby         |                                                                     |
-| 15  | PHP          |                                                                     |
+| 14  | Ruby         | Standard object-oriented Ruby                                       |
+| 15  | PHP          | Uses a closure to simplify implementation                           |
 | 16  |              |                                                                     |
 | 17  | C++20        |                                                                     |
 | 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
+| 19  | Kotlin       |                                                                     |
 
 Languages to Choose from:
-- C
+- D
 - Rust
 - Java
 - Scala
-- Kotlin
 - JavaScript
 - TypeScript
 - Go
