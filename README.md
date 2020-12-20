@@ -22,7 +22,7 @@ A Programming Language Per Day
 | 16  |              |                                                                     |
 | 17  | C++20        |                                                                     |
 | 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
-| 19  | Kotlin       |                                                                     |
+| 19  | Kotlin       | Non-deterministic Push-down automata simulator!                     |
 
 Languages to Choose from:
 - D
@@ -33,7 +33,6 @@ Languages to Choose from:
 - TypeScript
 - Go
 - C#
-- Haskell
 - Prolog
 - Lisp
 - TI-BASIC
