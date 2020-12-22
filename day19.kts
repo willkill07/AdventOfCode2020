@@ -1,7 +1,7 @@
 import java.io.File
 import kotlin.system.exitProcess
 
-open class Rule
+sealed class Rule
 class Terminal(var char: Char) : Rule()
 class Choice(var choices: List<List<Int>>) : Rule()
 
@@ -25,7 +25,6 @@ fun parse(rules: Map<Int, Rule>, sentence: String, pda: List<Int>): Boolean {
   return when (rule) {
     is Terminal -> sentence.startsWith(rule.char) && parse(rules, sentence.drop(1), pda.drop(1))
     is Choice -> rule.choices.firstOrNull { choice -> parse(rules, sentence, choice + pda.drop(1)) } != null
-    else -> false
   }
 }
 
