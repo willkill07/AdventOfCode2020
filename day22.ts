@@ -29,15 +29,15 @@ const combat = (p1: number[], p2: number[]) : [number, number[]] => {
 			return [1, p1];
 		}
 		seen.add(key);
-		const [c1, c2] = [p1.shift(), p2.shift()]
-		let win : number = c1 > c2 ? 1 : 2;
-		if (p1.length >= c1 && p2.length >= c2) {
-			[win, ] = combat(p1.slice(0, c1), p2.slice(0, c2));
+		const [t1, t2] = [p1.shift(), p2.shift()]
+		let win : number = t1 > t2 ? 1 : 2;
+		if (p1.length >= t1 && p2.length >= t2) {
+			[win, ] = combat(p1.slice(0, t1), p2.slice(0, t2));
 		}
 		if (win === 1) {
-      [c1, c2].forEach(x => p1.push(x))
+      [t1, t2].forEach(x => p1.push(x))
 		} else {
-      [c2, c1].forEach(x => p2.push(x))
+      [t2, t1].forEach(x => p2.push(x))
 		}
 	}
 }
