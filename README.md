@@ -16,23 +16,21 @@ A Programming Language Per Day
 | 10  | Haskell      | Converted my OCaml solution to Haskell                              |
 | 11  | C            | Total of two dynamic memory allocations -- size is not hardcoded.   |
 | 12  | Swift        | Combination of Functional, Object-oriented, and fun with enums      |
-| 13  |              |                                                                     |
+| 13  | Rust         | "Sliding bus" solver for part 2 rather than CRT                     |
 | 14  | Ruby         | Standard object-oriented Ruby                                       |
 | 15  | PHP          | Uses a closure to simplify implementation                           |
-| 16  |              |                                                                     |
-| 17  | C++20        |                                                                     |
+| 16  | Lisp         | Brute force implementation using core Common Lisp                   |
+| 17  | C++          |                                                                     |
 | 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
 | 19  | Kotlin       | Non-deterministic Push-down automata simulator!                     |
+| 20  | JavaScript   | Detect locations of tiles, then construct, then search              |
 
 Languages to Choose from:
 - D
-- Rust
 - Java
 - Scala
-- JavaScript
 - TypeScript
 - Go
 - C#
 - Prolog
-- Lisp
 - TI-BASIC
