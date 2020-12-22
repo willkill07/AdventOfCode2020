@@ -20,16 +20,20 @@ A Programming Language Per Day
 | 14  | Ruby         | Standard object-oriented Ruby                                       |
 | 15  | PHP          | Uses a closure to simplify implementation                           |
 | 16  | Lisp         | Brute force implementation using core Common Lisp                   |
-| 17  | C++          |                                                                     |
+| 17  | C++          | Fully generic multidimensional code with hash sets for frontier     |
 | 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
 | 19  | Kotlin       | Non-deterministic Push-down automata simulator!                     |
 | 20  | JavaScript   | Detect locations of tiles, then construct, then search              |
+| 21  |              |                                                                     |
+| 22  | TypeScript   | Converted Javascript -> Typescript                                  |
+| 23  |              |                                                                     |
+| 24  |              |                                                                     |
+| 25  |              |                                                                     |
 
 Languages to Choose from:
 - D
 - Java
 - Scala
-- TypeScript
 - Go
 - C#
 - Prolog
