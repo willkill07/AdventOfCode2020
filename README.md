@@ -24,7 +24,7 @@ A Programming Language Per Day
 | 18  | Flex + Bison | Building your own compiler counts as a language, right?             |
 | 19  | Kotlin       | Non-deterministic Push-down automata simulator!                     |
 | 20  | JavaScript   | Detect locations of tiles, then construct, then search              |
-| 21  |              |                                                                     |
+| 21  | R            |                                                                     |
 | 22  | TypeScript   | Converted Javascript -> Typescript                                  |
 | 23  |              |                                                                     |
 | 24  |              |                                                                     |
