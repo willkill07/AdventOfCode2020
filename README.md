@@ -27,15 +27,13 @@ A Programming Language Per Day
 | 21  | R            | Creates a new environment for the potential allergens + ingredients |
 | 22  | TypeScript   | Converted Javascript -> Typescript                                  |
 | 23  | Scala        | No linked lists -- only arrays and fun in scala!                    |
-| 24  |              |                                                                     |
-| 25  |              |                                                                     |
+| 24  | C#           | LINQ where possible                                                 |
+| 25  | Java         | No real comments here. Pretty straight forward                      |
 
 `*` Still working on an cleaner solution to Part 2
 
-Potential Languages to Choose from:
-- D
-- Java
-- Go
-- C#
-- Prolog
-- TI-BASIC
+Potential Languages to Choose from (that I didn't...)
+- D - dev environment wasn't easy
+- Go - just didn't find a use
+- Prolog - i wanted to use prolog for a problem but I'm not used to parsing in prolog
+- TI-BASIC - for fun, I would definitely implement a day or two in TI-BASIC but input parsing?
