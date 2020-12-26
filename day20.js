@@ -6,23 +6,32 @@ const transpose = mat => mat[0].map((_, i) => mat.map(row => row[i]))
 const flip = mat => mat.map((row => row.map((e, i) => row[(row.length - 1) - i])))
 const rotate = mat => flip(transpose(mat))
 
-const edges_of = mat => {
-  const r90 = rotate(mat)
-  const r180 = rotate(r90)
-  const r270 = rotate(r180)
-  const flipped = flip(mat)
-  const f90 = rotate(flipped)
-  const f180 = rotate(f90)
-  const f270 = rotate(f180)
-  return [mat, r90, r180, r270, flipped, f90, f180, f270].map(x => x[0].join())
+const transform = [
+  m => m,
+  m => rotate(m),
+  m => rotate(rotate(m)),
+  m => rotate(rotate(rotate(m))),
+  m => flip(m),
+  m => flip(rotate(m)),
+  m => flip(rotate(rotate(m))),
+  m => flip(rotate(rotate(rotate(m))))
+]
+
+const edge = {
+  'top': x => x[0].join(''),
+  'bottom': x => x[x.length - 1].join(''),
+  'left': x => x.map(y => y[0]).join(''),
+  'right': x => x.map(y => y[y.length - 1]).join('')
 };
+
+const edges_of = m => transform.map(fn => fn(m)[0].join(""))
 
 // construct blocks
 let blocks = (() => {
   let blocks = new Map();
   blob.split("\n\n").forEach(tile => {
     const [id, ...rest] = tile.split('\n')
-    const num = Number(id.split(' ')[1].slice(0, -1))
+    const num = +(id.split(' ')[1].slice(0, -1))
     blocks.set(num, rest.map(x => [...x]))
   })
   return blocks
@@ -57,56 +66,83 @@ const product = [...corner_pieces].reduce((a,x) => a * x[0], 1)
 // Part 1
 console.log(product)
 
+const dim_y = 12
+const dim_x = 12
+const size_y = corner_pieces[0].length
+const size_x = corner_pieces[0][0].length
+
 const placement = (() => {
   let seen = new Set();
   let places = Array.from(Array(12), () => new Array(12))
-  let [j, i] = [0, 0]
-
-  // grab a corner
-  let [next, _] = [...corner_pieces][0]
-  places[j][i++] = next;
-  seen.add(next);
 
   const update = (j, i, pile, filtered) => {
-    let [next, _] = neighbor_of(pile, filtered, seen)
-    places[j][i] = next;
-    seen.add(next);
-    if (++i == 12) {
-      ++j
-    }
-    return [j, i]
+    let [n, _] = (j === 0 && i === 0) ? [...corner_pieces][0] : neighbor_of(pile, filtered, seen) 
+    places[j][i] = n;
+    seen.add(n);
   };
 
-  function next_to(grid, j, i) {
+  const next_to = (grid, j, i) => {
     list = []
     if (i > 0) list.push(grid[j][i - 1])
     if (j > 0) list.push(grid[j - 1][i])
     return list
-  }
+  };
 
-  // fill the top
-  while (i < 11) {
-    [j, i] = update(j, i, edge_pieces, next_to(places, j, i))
-  }
-  [j, i] = update(j, i, corner_pieces, next_to(places, j, i))
+  const selector = (j, i) => {
+    if ([0, dim_y - 1].includes(i) && [0, dim_y - 1].includes(j)) { return corner_pieces; }
+    if ([0, dim_x - 1].includes(i) || [0, dim_x - 1].includes(j)) { return edge_pieces; }
+    return neighbors;
+  };
 
-  // process row-by-row from left-to-right
-  while (j < 12) {
-    [j, i] = update(j, 0, neighbors, next_to(places, j, 0))
-    while(i < 12) {
-      [j, i] = update(j, i, neighbors, next_to(places, j, i))
+  // place the pieces in the correct location
+  [...Array(dim_y).keys()].forEach(j =>
+    [...Array(dim_x).keys()].forEach(i =>
+      update(j, i, selector(j, i), next_to(places, j, i))));
+
+  
+  const _align_to = (self_id, constraints, first) => {
+    const cs = first
+      ? constraints.map(([piece, side]) => m => edges_of(blocks.get(piece)).includes(side(m)))
+      : constraints.map(([piece, side, my_side]) => m => side(blocks.get(piece)) === my_side(m))
+    const self = blocks.get(self_id)
+    transform.some(fn => {
+      const transform = fn(self)
+      if (cs.every(pred => pred(transform))) {
+        blocks.set(self_id, transform);
+        return true;
+      }
+      return false;
+    });
+  };
+
+  const align = (j, i) => {
+    if (i === 0) {
+      if (j === 0) { // corner -- orient piece to align with bottom and right
+        _align_to(places[j][0], [[places[j + 1][0], edge.bottom], [places[0][1], edge.right]], true)
+      } else { // left side -- match top <-> bottom
+        _align_to(places[j][0], [[places[j - 1][0], edge.bottom, edge.top]]);
+      }
+    } else { // everything else -- match left <-> right
+      _align_to(places[j][i], [[places[j][i - 1], edge.right, edge.left]]);
     }
-  }
+  };
+
+  // align the pieces with the neighboring pieces, start from upper-left
+  [...Array(dim_y).keys()].forEach(j =>
+    [...Array(dim_x).keys()].forEach(i =>
+      align(j, i)));
+
   return places
 })()
 
-const mine = edges_of(blocks.get(placement[0][0]))
-const mine_u = mine.map((val, idx) => [val, idx])
-
-const below = edges_of(blocks.get(placement[1][0]))
-  .map((val, idx) => [val, idx])
-  .filter(([v,_]) => unique_ids.get(v).size === 1)
-
-const right = edges_of(blocks.get(placement[0][1]))
-  .map((val, idx) => [val, idx])
-  .filter(([v,_]) => unique_ids.get(v).size === 1)
+// assemble
+const map =
+  [...Array(dim_y).keys()].map(j =>
+    [...Array(size_y).keys()].splice(1, size_y - 2).map(jj =>
+      [...Array(dim_x).keys()].map(i =>
+        [...Array(size_x).keys()].splice(1, size_x - 2).map(ii =>
+          blocks.get(placement[j][i])[jj][ii])
+        .join(''))
+      .join(''))
+    .join('\n'))
+  .join('\n');
