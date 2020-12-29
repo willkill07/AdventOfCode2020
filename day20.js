@@ -54,6 +54,7 @@ const neighbor_map = (() => {
 const pieces_with_count = n => new Map([...neighbor_map].filter(([_, set]) => set.size === n))
 
 const corner_pieces = pieces_with_count(2)
+const edge_pieces = pieces_with_count(3)
 
 const product = [...corner_pieces].reduce((a,x) => a * x[0], 1)
 
@@ -62,6 +63,12 @@ console.log(product)
 
 const [dim_y, dim_x, size_y, size_x] = [12, 12, 10, 10]
 
+function* range(lo, hi) {
+  while (lo < hi) {
+    yield lo++
+  }
+}
+
 const placement = (() => {
   let seen = new Set();
   let places = Array.from(Array(dim_y), () => new Array(dim_x));
@@ -69,7 +76,7 @@ const placement = (() => {
   const update = (j, i) => {
     const selector = (j, i) => {
       if ([0, dim_y - 1].includes(i) && [0, dim_y - 1].includes(j)) { return corner_pieces; }
-      if ([0, dim_x - 1].includes(i) || [0, dim_x - 1].includes(j)) { return pieces_with_count(3); }
+      if ([0, dim_x - 1].includes(i) || [0, dim_x - 1].includes(j)) { return edge_pieces; }
       return neighbor_map;
     };
     const next_to = (j, i) => Array.of(i > 0 ? places[j][i - 1] : null, j > 0 ? places[j - 1][i] : null).filter(x => x);
@@ -98,13 +105,13 @@ const placement = (() => {
   }
 
   // place the pieces in the correct location
-  [...Array(dim_y).keys()].forEach(j =>
-    [...Array(dim_x).keys()].forEach(i =>
+  [...range(0, dim_y)].forEach(j =>
+    [...range(0, dim_x)].forEach(i =>
       update(j, i)));
 
   // align the pieces with the neighboring pieces, start from upper-left
-  [...Array(dim_y).keys()].forEach(j =>
-    [...Array(dim_x).keys()].forEach(i =>
+  [...range(0, dim_y)].forEach(j =>
+    [...range(0, dim_x)].forEach(i =>
       align(j, i)));
 
   return places
@@ -112,17 +119,15 @@ const placement = (() => {
 
 // Assemble the entire puzzle
 const assembled_puzzle =
-  [...Array(dim_y).keys()].map(j =>
-    [...Array(size_y).keys()].splice(1, size_y - 2).map(jj =>
-      [...Array(dim_x).keys()].map(i =>
-        [...Array(size_x).keys()].splice(1, size_x - 2).map(ii =>
+  [...range(0, dim_y)].map(j =>
+    [...range(1, size_y - 1)].map(jj =>
+      [...range(0, dim_x)].map(i =>
+        [...range(1, size_x - 1)].map(ii =>
           pieces.get(placement[j][i])[jj][ii])
         .join(''))
       .join(''))
-    .join('\n'))
-  .join('\n')
-  .split('\n')
-  .map(x => x.split(''))
+    )
+  .flat().map(x => x.split(''))
 
 // component for identifing the monster
 const monster =
@@ -141,8 +146,8 @@ const [EMPTY, MARKED, UNMARKED] = ['.', '^', '#']
 const mark = (map) => {
   const map_height = map.length;
   const map_width = map[0].length;
-  [...Array(map_height - monster_height).keys()].forEach(bj =>
-    [...Array(map_width - monster_width).keys()].forEach(bi => {
+  [...range(0, map_height - monster_height)].forEach(bj =>
+    [...range(0, map_width - monster_width)].forEach(bi => {
       // when all the monster elements are found, mark all of them
       if (monster.every(([j, i, ]) => map[bj + j][bi + i] !== EMPTY)) {
         monster.forEach(([j, i, ]) => map[bj + j][bi + i] = MARKED)
