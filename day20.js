@@ -127,7 +127,7 @@ const assembled_puzzle =
         .join(''))
       .join(''))
     )
-  .flat().map(x => x.split(''))
+  .flat().map(x => [...x])
 
 // component for identifing the monster
 const monster =
@@ -135,7 +135,7 @@ const monster =
 #    ##    ##    ###
  #  #  #  #  #  #   `
   .split('\n')
-  .map((row, j) => row.split('').map((cell, i) => [j, i, cell]).filter(a => a[2] === '#'))
+  .map((row, j) => [...row].map((cell, i) => [j, i, cell]).filter(a => a[2] === '#'))
   .flat()
 
 const monster_height = monster.reduce((max, [j, ]) => (j > max ? j : max), 0) + 1
